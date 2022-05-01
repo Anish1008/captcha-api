@@ -48,8 +48,10 @@ s+=a+""+b+""+""+c+""+d+""+e+""+f
     .moveTo(80,-150)
     .lineTo(0,600)
     .stroke();
+    img_url = image.toDataURL('image/png');
+    console.log(img_url);
     res.json({
-                "image": image.toDataURL('image/png'),
+                "image": img_url,
                 'text': s
             }
         )
