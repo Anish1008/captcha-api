@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const {Blob} = require('buffer');
 // const cors = require('cors');
 const {Canvas} = require('canvas-constructor/cairo');
 const bodyParser = require('body-parser');
@@ -48,13 +49,47 @@ s+=a+""+b+""+""+c+""+d+""+e+""+f
     .moveTo(80,-150)
     .lineTo(0,600)
     .stroke();
-    img_url = image.toDataURL('image/png');
-    console.log(img_url);
-    res.json({
-                "image": img_url,
-                'text': s
-            }
-        )
+    let img_url = image.toDataURL('image/png');
+    console.log(img_url.toString());
+        // var binary = atob(img_url.split(',')[1]);
+        // var array = [];
+        // for(var i = 0; i < binary.length; i++) {
+        //     array.push(binary.charCodeAt(i));
+        // }
+        // img_url =  new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
+        // console.log(img_url);
+//         var u = img_url.split(',')[1],
+//     binary = atob(u),
+//     array = [];
+
+// for (var i = 0; i < binary.length; i++) {
+//     array.push(binary.charCodeAt(i));
+// }
+
+// var typedArray = new Uint8Array(array);
+// console.log(typedArray.buffer);
+// var byteString = atob(img_url.split(',')[1]);
+
+// // separate out the mime component
+// var mimeString = img_url.split(',')[0].split(':')[1].split(';')[0]
+
+// // write the bytes of the string to an ArrayBuffer
+// var ab = new ArrayBuffer(byteString.length);
+
+// // create a view into the buffer
+// var ia = new Uint8Array(ab);
+
+// // set the bytes of the buffer to the correct values
+// for (var i = 0; i < byteString.length; i++) {
+//     ia[i] = byteString.charCodeAt(i);
+// }
+
+// // write the ArrayBuffer to a blob, and you're done
+// var blob = new Blob([ab], {type: mimeString});
+// console.log(blob);
+    res.json([{image:img_url.toString(),
+    "text":s}]);
+        
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
